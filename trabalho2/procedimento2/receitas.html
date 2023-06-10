@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Catálogo de Receitas</title>
+</head>
+<body class="container-fluid bg-warning" onload="preencheCatalogo()">
+    <div class="flex-wrap" id="pnlCatalogo" style="flex-direction: row; display: flex;">
+        
+    </div>
+    <script>
+       const dados_receitas= {
+        "receita1":{
+            "título":"Arroz de Couve-Flor",
+            "imagem":"img/arroz-de-couve-flor-01.jpg",
+            "preparo":"deixe a couve-flor picada. Adicione os ingredientes e refogue bem. Adicione sal, tampe a panela e deixe cozinhar.",
+            "ingredientes":{
+                0:"Arroz",
+                1:"Couve-Flor",
+                2:"Cebola Média",
+                3:"Azeite"
+            },
+        },
+        "receita2":{
+            "título":"Bolo de café",
+            "imagem":"img/cafe.jpg",
+            "preparo":"Bata o açúcar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte á mistura",
+            "ingredientes":{
+                0:"Farinha de Trigo",
+                1:"Açúcar",
+                2:"Café Coado",
+                3:"Chocolate em Pó",
+                4:"Ovos"
+            },
+        },
+        "receita3":{
+            "título":"Coxinha de Brigadeiro",
+            "imagem":"img/coxinha.jpg",
+            "preparo":"Junte o leite condensado, chocolate em pó e manteiga. Aqueça no fogo baixo. Envolva os morangos e passe no granulado",
+            "ingredientes":{
+                0:"Leite Condensado",
+                1:"Chocolate em Pó",
+                2:"Manteiga",
+                3:"Morango",
+                4:"Chocolate Granulado",
+            },
+        }
+        
+       };
+       
+        let bloco1 = document.getElementById("pnlCatalogo")
+        
+
+        const getListaIngredientes = (receita) => {
+            let bloco2= document.getElementById("lista-ing")
+            let bloco3 = document.createElement("ul")
+            
+            let receitas = Object.values(dados_receitas)
+            let ingredientes= Object.values(receitas[receita].ingredientes)
+            
+
+            ingredientes.map(function (num) {
+                let lista = document.createElement("li")
+                lista.appendChild(document.createTextNode(num))
+                bloco3.appendChild(lista)
+                return bloco3
+            })
+            return bloco3
+        };
+
+       const getCard = (receita) => {
+            let bloco = document.createElement('div')
+            bloco.classList.add("card")
+            bloco.style.width = "250px"
+            bloco.style.margin = "10px"
+            let img = document.createElement('img')
+            img.classList.add("card-img-top")
+            img.style.height= "139px"
+            let bloco2 = document.createElement('div')
+            bloco2.classList.add("card-body")
+            let title = document.createElement('h2')
+            title.classList.add("card-title")
+            let bloco3 = document.createElement('div')
+            bloco3.classList.add("card-text")
+            let lista= document.createElement('div')
+            lista.setAttribute('id', 'lista-ing')
+            let prep = document.createElement('div')
+            prep.setAttribute('id', 'preparo')
+            bloco3.appendChild(lista)
+            bloco3.appendChild(document.createElement('hr'))
+            bloco3.appendChild(prep)
+            bloco2.appendChild(title)
+            bloco2.appendChild(bloco3)
+            bloco.appendChild(img)
+            bloco.appendChild(bloco2)
+        
+            bloco1.appendChild(bloco)
+            
+            let receitas = Object.values(dados_receitas)
+            title.appendChild(document.createTextNode(receitas[receita].título))
+            img.setAttribute('src', receitas[receita].imagem)
+            prep.appendChild(document.createTextNode(receitas[receita].preparo))
+            lista.appendChild(getListaIngredientes(receita))
+           
+        }
+        const preencheCatalogo = () => {
+            let receitas = Object.values(dados_receitas)
+            for (let i = 0; i < receitas.length; i++) {
+                getCard(i)
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/ordenado.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <h1>Ordenando valores</h1>
+        <input type="number" placeholder="adcione números ao array" id="valor">
+        <button id="adicionar" type="submit" onclick="add()">Adivionar</button>
+        <select name="Ordenador" id="ordenador">
+            <option value="1">Blubble Sort</option>
+            <option value="2">Selection Sort</option>
+            <option value="3">Quick Sort</option>
+        </select>
+        <button id="ordenar" onclick="Ordenar()">Ordernar</button>
+        <button id="misturar" onclick="Misturar()">Misturar</button>
+        <hr>
+        <div>
+            <ul id="valores">
+                
+            </ul>
+        </div>
+        <script>
+            var valores = []
+
+            function add() {
+            let val= document.getElementById("valor");
+            let lista= document.getElementById("valores");
+            let valor= document.createTextNode(val.value);
+            let novo_valor= document.createElement("li");
+                if(val.value!= 0){
+                    novo_valor.appendChild(valor);
+            
+                    lista.appendChild(novo_valor);
+                    let value= val.value;
+                    valores.push(parseInt(value))
+                };
+            };
+
+            function Ordenar() {
+                var lista= document.getElementById("valores");
+                lista.innerHTML="";
+                var select= document.getElementById("ordenador")
+                var val = select.value
+                
+                if (val== 1) {
+                    bubble_sort(valores)
+                    
+                    valores.map(function (num) {
+                        var n = document.createTextNode(num)
+                        var novo_valor= document.createElement("li")
+                        novo_valor.appendChild(n)
+                        lista.appendChild(novo_valor)
+                    })
+                }if (val== 2) {
+                    selection_sort(valores)
+                    valores.map(function (num) {
+                        var n = document.createTextNode(num)
+                        var novo_valor= document.createElement("li")
+                        novo_valor.appendChild(n)
+                        lista.appendChild(novo_valor)
+                    })
+                } else {
+                    quickSort(valores)
+                    valores.map(function (num) {
+                        var n = document.createTextNode(num)
+                        var novo_valor= document.createElement("li")
+                        novo_valor.appendChild(n)
+                        lista.appendChild(novo_valor)
+                    })
+                }
+            };
+            
+            function Misturar() {
+                
+                shuffle(valores, 2)
+                console.log(valores)
+                var lista= document.getElementById("valores");
+                lista.innerHTML="";
+
+                valores.map(function (num) {
+                        var n = document.createTextNode(num)
+                        var novo_valor= document.createElement("li")
+                        novo_valor.appendChild(n)
+                        lista.appendChild(novo_valor)
+                    }
+                        
+                    )
+            };
+           
+        </script>
+    </main>   
+</body>
+</html>
